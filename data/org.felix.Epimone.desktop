@@ -1,0 +1,26 @@
+[Desktop Entry]
+Type=Application
+Name=Epimone
+GenericName=Terminal
+Comment=A persistent terminal emulator
+Exec=epimone
+TryExec=epimone
+Icon=org.felix.Epimone
+Terminal=false
+Categories=System;TerminalEmulator;
+Keywords=shell;prompt;command;commandline;cmd;
+StartupNotify=true
+StartupWMClass=org.felix.Epimone
+Actions=new-window;new-tab;preferences;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=epimone --new-window
+
+[Desktop Action new-tab]
+Name=New Tab
+Exec=epimone --new-tab
+
+[Desktop Action preferences]
+Name=Preferences
+Exec=epimone --preferences

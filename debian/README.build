@@ -1,0 +1,39 @@
+# Building the Epimone .deb
+
+## Canonical build (debhelper + Meson) — recommended, use on the Kali VM
+
+Install the build dependencies, then build from the repo root:
+
+    sudo apt install debhelper meson ninja-build pkgconf \
+        libgtk-4-dev libadwaita-1-dev libvte-2.91-gtk4-dev libglib2.0-dev
+    dpkg-buildpackage -b -us -uc
+
+This drives the Meson build through `debian/rules` (`dh $@ --buildsystem=meson`)
+and writes `../epimone_<version>_<arch>.deb`. `-b` = binary-only, `-us -uc` =
+don't sign. Shared-library dependencies are computed by `dh_shlibdeps` from the
+build host's libraries, so run it **on the target distro** (Kali) for correct
+version floors.
+
+## Fallback build (no debhelper) — Meson + dpkg-dev only
+
+For hosts without `debhelper`:
+
+    sh debian/build-deb-nohelper.sh
+
+Produces `epimone_<version>_<arch>.deb` in the repo root. Same install layout
+and (on the same host) same dependencies as the debhelper build.
+
+## Install on the Kali VM (amd64)
+
+    sudo apt install ./epimone_0.1.0-1_amd64.deb
+
+apt resolves the runtime dependencies. Launch from the app grid ("Epimone") or
+run `epimone`.
+
+## Architecture
+
+This build targets **amd64**. For an **arm64** build later: build on an arm64
+host (or cross-build), change nothing in `debian/control`'s `Architecture: amd64`
+line to `arm64` (or use `any`), and rebuild — `dh_shlibdeps` recomputes the
+correct arch-specific dependencies. No source or packaging-logic changes are
+needed; the layout and dependency *names* are arch-independent.

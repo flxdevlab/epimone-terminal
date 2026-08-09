@@ -1,0 +1,32 @@
+#!/bin/sh
+# postinst — recompile the GSettings schemas and refresh the hicolor icon
+# cache so the freshly installed schema and icons are picked up. Meson's
+# gnome.post_install() only runs on a live `meson install`; under dpkg the
+# tree is staged with DESTDIR, so these steps are done here instead.
+set -e
+
+case "$1" in
+    configure)
+        if [ -d /usr/share/glib-2.0/schemas ]; then
+            glib-compile-schemas /usr/share/glib-2.0/schemas || true
+        fi
+
+        if [ -d /usr/share/icons/hicolor ]; then
+            if command -v gtk4-update-icon-cache >/dev/null 2>&1; then
+                gtk4-update-icon-cache -f /usr/share/icons/hicolor || true
+            elif command -v gtk-update-icon-cache >/dev/null 2>&1; then
+                gtk-update-icon-cache -f /usr/share/icons/hicolor || true
+            fi
+        fi
+
+        if command -v update-desktop-database >/dev/null 2>&1; then
+            update-desktop-database -q /usr/share/applications || true
+        fi
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

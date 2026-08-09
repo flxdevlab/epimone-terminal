@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.felix.Epimone" path="/org/felix/Epimone/">
+
+    <key name="default-columns" type="i">
+      <default>80</default>
+      <range min="20" max="500"/>
+      <summary>Default columns</summary>
+      <description>
+        Width, in character cells, that a terminal asks for when it is created.
+        A new window sizes itself around this; already-open terminals keep
+        whatever size their pane gives them.
+      </description>
+    </key>
+
+    <key name="default-rows" type="i">
+      <default>24</default>
+      <range min="5" max="200"/>
+      <summary>Default rows</summary>
+      <description>
+        Height, in character cells, that a terminal asks for when it is
+        created. See default-columns.
+      </description>
+    </key>
+
+    <key name="tab-position" type="s">
+      <default>'top'</default>
+      <choices>
+        <choice value="top"/>
+        <choice value="bottom"/>
+      </choices>
+      <summary>Tab bar position</summary>
+      <description>Whether the tab bar sits above or below the terminal.</description>
+    </key>
+
+    <key name="tab-bar-policy" type="s">
+      <default>'multiple'</default>
+      <choices>
+        <choice value="always"/>
+        <choice value="multiple"/>
+        <choice value="never"/>
+      </choices>
+      <summary>When to show the tab bar</summary>
+      <description>
+        always: keep the tab bar visible even for a single tab.
+        multiple: reveal it only once a second tab exists.
+        never: keep it hidden.
+      </description>
+    </key>
+
+    <key name="confirm-close" type="b">
+      <default>true</default>
+      <summary>Confirm before closing</summary>
+      <description>
+        Ask for confirmation when closing a window that still has more than one
+        tab open.
+      </description>
+    </key>
+
+    <key name="font-name" type="s">
+      <default>''</default>
+      <summary>Terminal font</summary>
+      <description>
+        Pango font description used for terminal text. An empty string means
+        the system monospace font.
+      </description>
+    </key>
+
+    <key name="theme" type="s">
+      <default>'epimone-black'</default>
+      <summary>Color theme</summary>
+      <description>Name of the active terminal color theme.</description>
+    </key>
+
+    <key name="scrollback-lines" type="i">
+      <default>10000</default>
+      <range min="0" max="10000000"/>
+      <summary>Scrollback lines</summary>
+      <description>
+        Number of lines kept in the scrollback buffer. 0 disables scrollback.
+      </description>
+    </key>
+
+    <key name="scrollback-unlimited" type="b">
+      <default>false</default>
+      <summary>Unlimited scrollback</summary>
+      <description>
+        Keep every line of output instead of the scrollback-lines limit. While
+        true, scrollback-lines is left untouched so the previous limit comes
+        back when this is turned off again.
+      </description>
+    </key>
+
+    <key name="scroll-on-output" type="b">
+      <default>false</default>
+      <summary>Scroll on output</summary>
+      <description>
+        Whether the view jumps to the bottom whenever new output arrives.
+      </description>
+    </key>
+
+    <key name="scroll-on-keystroke" type="b">
+      <default>true</default>
+      <summary>Scroll on keystroke</summary>
+      <description>
+        Whether the view jumps to the bottom when a key is pressed.
+      </description>
+    </key>
+
+    <key name="cursor-shape" type="s">
+      <default>'block'</default>
+      <summary>Cursor shape</summary>
+      <description>Terminal cursor shape: block, ibeam, or underline.</description>
+    </key>
+
+    <key name="dim-inactive-panes" type="b">
+      <default>true</default>
+      <summary>Dim inactive panes</summary>
+      <description>
+        In a tab split into several panes, fade the text of the panes that do
+        not hold the keyboard focus. The fade is drawn in the terminal's own
+        background colour, so only the ink dims — empty regions stay identical
+        to the focused pane. A single-pane tab is never dimmed.
+      </description>
+    </key>
+
+    <key name="audible-bell" type="b">
+      <default>true</default>
+      <summary>Audible bell</summary>
+      <description>Whether the terminal emits an audible bell.</description>
+    </key>
+
+    <key name="shell-path" type="s">
+      <default>''</default>
+      <summary>Default shell</summary>
+      <description>
+        Absolute path of the program run in a new terminal. An empty string
+        means the system default: $SHELL, falling back to the shell in the
+        user's passwd entry.
+      </description>
+    </key>
+
+    <key name="login-shell" type="b">
+      <default>false</default>
+      <summary>Run as login shell</summary>
+      <description>
+        Start the shell as a login shell. This is signalled the traditional
+        way, by prefixing argv[0] with a dash ("-bash"), not by passing a
+        --login flag, so it works for shells that lack such a flag.
+      </description>
+    </key>
+
+    <key name="use-custom-command" type="b">
+      <default>false</default>
+      <summary>Use a custom command</summary>
+      <description>
+        Run custom-command instead of a shell. Shell integration is not
+        injected for custom commands, since the command need not be a shell.
+      </description>
+    </key>
+
+    <key name="custom-command" type="s">
+      <default>''</default>
+      <summary>Custom command</summary>
+      <description>
+        Command line run instead of a shell when use-custom-command is true.
+        Split into arguments with shell word-splitting and quoting rules; it is
+        not interpreted by a shell.
+      </description>
+    </key>
+
+    <key name="launch-command" type="s">
+      <default>''</default>
+      <summary>Command to run on launch</summary>
+      <description>
+        Text typed into a new terminal once it starts, followed by Return. It
+        is fed to the shell as ordinary input rather than run via -c, so the
+        session stays interactive and shell integration is unaffected.
+      </description>
+    </key>
+
+    <key name="cell-padding" type="i">
+      <default>8</default>
+      <range min="0" max="32"/>
+      <summary>Terminal padding</summary>
+      <description>
+        Even interior padding, in pixels, between the pane edge and the
+        terminal text on all four sides.
+      </description>
+    </key>
+
+    <!-- Advanced page.
+         ==================================================================
+         Compatibility and behaviour keys surfaced on the Advanced page. Each
+         default reproduces the behaviour Epimone had before the key existed,
+         so a user who never opens Advanced sees no change.
+
+         The three erase/width keys are per-terminal VTE settings applied
+         through the shared appearance registry (epimone-page.c), exactly like
+         cursor-shape: live to every open terminal and inherited by any built
+         later. The string ids mirror Ptyxis so the values read the same across
+         terminals. -->
+
+    <key name="backspace-binding" type="s">
+      <default>'auto'</default>
+      <choices>
+        <choice value="auto"/>
+        <choice value="ascii-backspace"/>
+        <choice value="ascii-delete"/>
+        <choice value="delete-sequence"/>
+        <choice value="tty"/>
+      </choices>
+      <summary>Backspace key binding</summary>
+      <description>
+        Byte sequence the Backspace key sends. auto lets VTE pick from the tty
+        settings (the previous, unconfigurable behaviour); ascii-backspace
+        sends Control-H (0x08); ascii-delete sends DEL (0x7F); delete-sequence
+        sends the escape sequence; tty sends the tty's own erase character.
+      </description>
+    </key>
+
+    <key name="delete-binding" type="s">
+      <default>'auto'</default>
+      <choices>
+        <choice value="auto"/>
+        <choice value="ascii-backspace"/>
+        <choice value="ascii-delete"/>
+        <choice value="delete-sequence"/>
+        <choice value="tty"/>
+      </choices>
+      <summary>Delete key binding</summary>
+      <description>
+        Byte sequence the Delete key sends. Same choices as backspace-binding;
+        auto reproduces the previous, unconfigurable behaviour.
+      </description>
+    </key>
+
+    <key name="cjk-ambiguous-width" type="s">
+      <default>'narrow'</default>
+      <choices>
+        <choice value="narrow"/>
+        <choice value="wide"/>
+      </choices>
+      <summary>Ambiguous-width characters</summary>
+      <description>
+        Cell width VTE gives East-Asian "ambiguous width" characters: narrow
+        (one cell, the previous behaviour and the Unicode default) or wide (two
+        cells, matching legacy CJK fonts). Mapped to VTE's width 1 and 2.
+      </description>
+    </key>
+
+    <key name="preserve-directory" type="s">
+      <default>'always'</default>
+      <choices>
+        <choice value="never"/>
+        <choice value="safe"/>
+        <choice value="always"/>
+      </choices>
+      <summary>Preserve working directory</summary>
+      <description>
+        Whether a new tab or split starts in the current pane's working
+        directory (reported by the shell over OSC 7). always inherits it
+        unconditionally — the previous behaviour; safe inherits it only when the
+        reported directory is on the local host, so a remote SSH directory does
+        not send a new local pane somewhere that does not exist; never always
+        starts at the daemon default ($HOME).
+      </description>
+    </key>
+
+    <!-- Read at shell-exit time, NOT yet surfaced in the UI. Present so the
+         schema is ready; the default reproduces today's behaviour (a pane
+         whose shell exits is torn down). Wiring the non-default choices touches
+         the detach/kill/shell-exit path and is deferred to its own brief. -->
+    <key name="exit-action" type="s">
+      <default>'close'</default>
+      <choices>
+        <choice value="none"/>
+        <choice value="restart"/>
+        <choice value="close"/>
+      </choices>
+      <summary>Action when the shell exits</summary>
+      <description>
+        What happens to a pane when its shell process exits: none leaves the
+        pane in place showing the final output; restart runs a fresh shell in
+        the same pane; close tears the pane down (the current behaviour).
+      </description>
+    </key>
+
+  </schema>
+
+  <!-- Keyboard shortcuts.
+       ==================================================================
+       One string key per rebindable action, named after the win.* action it
+       drives, holding a GTK accelerator string ("<Control><Shift>t"). The
+       empty string means the action has no shortcut at all, so the key falls
+       through to the shell untouched.
+
+       This mirrors Ptyxis (src/org.gnome.Ptyxis.gschema.xml.in), which keeps
+       its shortcuts in a child schema with one key per action rather than a
+       single dictionary: it gives every action its own default, so "reset"
+       is just g_settings_reset(), and it lets the UI watch changed::<action>
+       for one row instead of diffing a dict.
+
+       The defaults here are the accelerator table Epimone shipped with, so a
+       user who never opens the Keyboard page sees no change.
+       ================================================================== -->
+  <schema id="org.felix.Epimone.shortcuts" path="/org/felix/Epimone/shortcuts/">
+
+    <key name="new-tab" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;t'</default>
+      <summary>New Tab</summary>
+      <description>Accelerator that opens a new tab.</description>
+    </key>
+
+    <key name="new-window" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;n'</default>
+      <summary>New Window</summary>
+      <description>Accelerator that opens a new window.</description>
+    </key>
+
+    <key name="overview" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;o'</default>
+      <summary>All Sessions</summary>
+      <description>Accelerator that opens the session overview.</description>
+    </key>
+
+    <key name="tab-move-left" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;Page_Up'</default>
+      <summary>Move Tab Left</summary>
+      <description>
+        Accelerator that moves the active tab one place to the left. Does
+        nothing when it is already leftmost — the order does not wrap.
+      </description>
+    </key>
+
+    <key name="tab-move-right" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;Page_Down'</default>
+      <summary>Move Tab Right</summary>
+      <description>
+        Accelerator that moves the active tab one place to the right. Does
+        nothing when it is already rightmost — the order does not wrap.
+      </description>
+    </key>
+
+    <key name="split-right" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;d'</default>
+      <summary>Split Right</summary>
+      <description>Accelerator that splits the active pane horizontally.</description>
+    </key>
+
+    <key name="split-down" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;e'</default>
+      <summary>Split Down</summary>
+      <description>Accelerator that splits the active pane vertically.</description>
+    </key>
+
+    <!-- The KEY NAME stays close-pane: renaming it would orphan every stored
+         binding. Only the human-readable text follows the UI's detach
+         vocabulary (see the pane menu's note in epimone-page.c). -->
+    <key name="close-pane" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;w'</default>
+      <summary>Detach Pane</summary>
+      <description>
+        Accelerator that detaches the active pane, closing its widget while the
+        session keeps running in the daemon.
+      </description>
+    </key>
+
+    <key name="kill-pane" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;x'</default>
+      <summary>Kill Pane</summary>
+      <description>
+        Accelerator that kills the session in the active pane, after the same
+        confirmation dialog as the context menu item.
+      </description>
+    </key>
+
+    <key name="zoom" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;z'</default>
+      <summary>Zoom Pane</summary>
+      <description>Accelerator that zooms the active pane to fill the tab.</description>
+    </key>
+
+    <key name="open-in-new-tab" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;b'</default>
+      <summary>Open in New Tab</summary>
+      <description>
+        Accelerator that moves the active pane out of its split and into a new
+        tab of its own, without restarting the session. Does nothing when the
+        tab has only one pane. The default is B for "break out" — tmux calls
+        this same operation break-pane.
+      </description>
+    </key>
+
+    <!-- The five below ship UNBOUND (empty string), as Ptyxis ships them: none
+         has a conventional key across terminals, and Reset and Clear in
+         particular should not sit one typo away from a real binding. The
+         Keyboard page can bind any of them. -->
+
+    <key name="select-none" type="s">
+      <default>''</default>
+      <summary>Select None</summary>
+      <description>Accelerator that clears the active pane's selection.</description>
+    </key>
+
+    <key name="read-only" type="s">
+      <default>''</default>
+      <summary>Read-Only</summary>
+      <description>
+        Accelerator that toggles the active pane's read-only latch, stopping
+        keystrokes from reaching its shell.
+      </description>
+    </key>
+
+    <key name="reset" type="s">
+      <default>''</default>
+      <summary>Reset</summary>
+      <description>
+        Accelerator that resets the active pane's terminal state, recovering
+        from a program that dumped raw bytes.
+      </description>
+    </key>
+
+    <key name="reset-and-clear" type="s">
+      <default>''</default>
+      <summary>Reset and Clear</summary>
+      <description>
+        Accelerator that resets the active pane and clears its local
+        scrollback view. The daemon's ring buffer keeps the history.
+      </description>
+    </key>
+
+    <key name="set-title" type="s">
+      <default>''</default>
+      <summary>Set Title</summary>
+      <description>
+        Accelerator that opens the Set Title dialog for the active tab — the
+        same custom name the overview card menu's Set Title sets.
+      </description>
+    </key>
+
+    <key name="copy" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;c'</default>
+      <summary>Copy</summary>
+      <description>Accelerator that copies the selection to the clipboard.</description>
+    </key>
+
+    <key name="paste" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;v'</default>
+      <summary>Paste</summary>
+      <description>Accelerator that pastes the clipboard into the terminal.</description>
+    </key>
+
+    <key name="select-all" type="s">
+      <default>'&lt;Control&gt;&lt;Shift&gt;a'</default>
+      <summary>Select All</summary>
+      <description>Accelerator that selects the whole scrollback.</description>
+    </key>
+
+    <key name="preferences" type="s">
+      <default>'&lt;Control&gt;comma'</default>
+      <summary>Preferences</summary>
+      <description>Accelerator that opens the preferences window.</description>
+    </key>
+
+    <key name="focus-left" type="s">
+      <default>'&lt;Alt&gt;Left'</default>
+      <summary>Focus Pane Left</summary>
+      <description>Accelerator that moves focus to the pane on the left.</description>
+    </key>
+
+    <key name="focus-right" type="s">
+      <default>'&lt;Alt&gt;Right'</default>
+      <summary>Focus Pane Right</summary>
+      <description>Accelerator that moves focus to the pane on the right.</description>
+    </key>
+
+    <key name="focus-up" type="s">
+      <default>'&lt;Alt&gt;Up'</default>
+      <summary>Focus Pane Up</summary>
+      <description>Accelerator that moves focus to the pane above.</description>
+    </key>
+
+    <key name="focus-down" type="s">
+      <default>'&lt;Alt&gt;Down'</default>
+      <summary>Focus Pane Down</summary>
+      <description>Accelerator that moves focus to the pane below.</description>
+    </key>
+
+  </schema>
+</schemalist>

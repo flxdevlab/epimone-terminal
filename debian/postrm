@@ -1,0 +1,31 @@
+#!/bin/sh
+# postrm — after the schema and icons are removed, recompile the GSettings
+# schemas and refresh the hicolor icon cache so the caches no longer
+# reference Epimone's files.
+set -e
+
+case "$1" in
+    remove|purge|upgrade|disappear)
+        if [ -d /usr/share/glib-2.0/schemas ]; then
+            glib-compile-schemas /usr/share/glib-2.0/schemas || true
+        fi
+
+        if [ -d /usr/share/icons/hicolor ]; then
+            if command -v gtk4-update-icon-cache >/dev/null 2>&1; then
+                gtk4-update-icon-cache -f /usr/share/icons/hicolor || true
+            elif command -v gtk-update-icon-cache >/dev/null 2>&1; then
+                gtk-update-icon-cache -f /usr/share/icons/hicolor || true
+            fi
+        fi
+
+        if command -v update-desktop-database >/dev/null 2>&1; then
+            update-desktop-database -q /usr/share/applications || true
+        fi
+        ;;
+    failed-upgrade|abort-install|abort-upgrade)
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

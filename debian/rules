@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# Build Epimone with debhelper's meson buildsystem. compat 13 auto-detects
+# meson.build and drives configure/build/test/install through Meson, so the
+# sequencer below is intentionally minimal.
+
+export DEB_BUILD_MAINTAINER_OPTIONS = hardening=+all
+
+%:
+	dh $@ --buildsystem=meson
+
+# Install under prefix /usr (Meson's default is /usr/local; Debian wants /usr).
+override_dh_auto_configure:
+	dh_auto_configure -- --prefix=/usr --buildtype=plain

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <!-- Symbolic app icon: the >_ mark from epimone_final.svg redrawn for the
+       16px grid per GNOME symbolic conventions — single #2e3436 fill, no
+       gradients, no rounded-square body. Filled polygons instead of strokes
+       so GTK's symbolic recoloring (which rewrites fill) applies cleanly:
+       chevron arms at 45 degrees, 3px thick horizontally (~2.1px true) with
+       square ends, cursor bar 5x2, all on integer coordinates for crisp
+       rendering at 16px. -->
+  <path fill="#2e3436" d="M2 3h3l5 5-5 5H2l5-5zM9 11h5v2H9z"/>
+</svg>

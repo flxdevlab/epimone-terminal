@@ -1,0 +1,22 @@
+# Build output
+/build/
+build/
+
+# Internal working documents (not for publication)
+EPIMONE-HANDOFF.md
+EPIMONE-ROADMAP.md
+EPIMONE-REFERENCE.md
+/files/
+
+# Packaging artifacts
+*.deb
+*.zip
+
+# Compiled objects / misc build noise
+*.o
+*.a
+*.so
+
+# Editor / OS noise
+*~
+.DS_Store

@@ -1,0 +1,22 @@
+epimone (0.1.0-2) unstable; urgency=medium
+
+  * Rebuild from current source (carries the divider-drag winsize coalescing
+    fix). No packaging-layout changes.
+  * The build scripts now stamp a unique, monotonic build suffix onto the
+    version (see debian/build-deb-nohelper.sh) so every artifact is
+    distinguishable and `apt install ./epimone_*.deb` always replaces an
+    earlier install instead of no-opping on an identical version string.
+
+ -- Felix <felix@deluxehomes.com>  Sat, 09 Aug 2026 09:00:00 +0400
+
+epimone (0.1.0-1) unstable; urgency=medium
+
+  * Initial Debian packaging.
+    - GUI (epimone), persistence daemon (epimone-daemon) and control tool
+      (epimone-ctl) installed to /usr/bin.
+    - GSettings schema, hicolor icon ladder, desktop entry (with Desktop
+      Actions) and shell-integration scripts installed under /usr/share.
+    - postinst/postrm recompile the GSettings schemas and refresh the
+      hicolor icon cache.
+
+ -- Felix <felix@deluxehomes.com>  Sat, 08 Aug 2026 21:53:34 +0400
