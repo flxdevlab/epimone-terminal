@@ -4,10 +4,9 @@
 
 # Epimone Terminal
 
-### The terminal that keeps running after you close the window.
-
 *Epimone (pronounced eh-PIM-o-nee) is a rhetorical device: the persistent repetition of a phrase, question, or single point to keep the focus on one central idea. It comes from the Greek epi (upon) and mone (tarrying, or staying). A terminal that refuses to let go of your session while it is running felt like the right thing to name after it.*
 
+### The terminal that keeps running after you close the window.
 
 Close the window. Crash the GUI. Your shells keep running in the background,
 right where you left them, until you reattach.
@@ -22,8 +21,6 @@ right where you left them, until you reattach.
 </div>
 
 ---
-
-
 
 ## What makes it different
 
@@ -47,7 +44,7 @@ To be clear about the boundary: this survives closing the window and the GUI cra
 
 Here is the demo that says everything. Split a pane, start `ping` in it, close the whole window, then reopen it. The ping is still counting. It never stopped, because it was never the window's to stop. It belongs to the daemon.
 
-https://github.com/user-attachments/assets/8fe6af5a-5be1-49c1-960a-377b98de2f94
+https://github.com/user-attachments/assets/a286c76a-ed1c-4fce-9c59-998593292032
 
 
 
