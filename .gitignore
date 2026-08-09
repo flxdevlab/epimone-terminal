@@ -8,6 +8,10 @@ EPIMONE-ROADMAP.md
 EPIMONE-REFERENCE.md
 /files/
 
+# Local icon source/working folders (not shipped; the build uses data/icons/)
+/epimone-icon-assets/
+/icons/
+
 # Packaging artifacts
 *.deb
 *.zip

@@ -236,8 +236,8 @@ sudo apt install build-essential meson ninja-build \
 Build and run:
 
 ```sh
-git clone https://github.com/flxdevlab/epimone.git
-cd epimone
+git clone https://github.com/flxdevlab/epimone-terminal.git
+cd epimone-terminal
 meson setup build
 meson compile -C build
 ./build/epimone
@@ -293,4 +293,4 @@ Built with [GTK](https://gtk.org), [libadwaita](https://gitlab.gnome.org/GNOME/l
 ## License
 
 Epimone Terminal is licensed under the GNU General Public License v3.0 or later (GPL-3.0-or-later).
-See [`COPYING`](COPYING) for the full text.
+See [`LICENSE`](LICENSE) for the full text.
