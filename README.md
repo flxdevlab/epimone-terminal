@@ -90,6 +90,20 @@ In active development toward 1.0. The core is done and daily-drivable right now:
 
 ## Install
 
+### From a .deb package (recommended)
+
+Download the latest `.deb` from the [releases page](https://github.com/flxdevlab/epimone-terminal/releases) and install it with apt, which pulls in the dependencies for you:
+
+```
+sudo apt install ./epimone_*.deb
+```
+
+This works on Ubuntu, Debian, Kali, and Parrot. On Kali and Parrot, run `sudo apt update` first so apt can find the GTK 4 build of VTE.
+
+The daemon starts on its own when you launch the app. You never run it by hand.
+
+### Build from source
+
 Epimone uses the [Meson](https://mesonbuild.com/) build system.
 
 You need a C compiler (GCC or Clang), Meson, Ninja, GTK 4, libadwaita 1.5 or newer, VTE (the GTK 4 build), and GLib. On Debian, Ubuntu, Kali, or Parrot:
@@ -114,8 +128,6 @@ Install system-wide:
 ```
 sudo meson install -C build
 ```
-
-The daemon starts on its own when you launch the app. You never run it by hand.
 
 ## How it works
 
