@@ -44,9 +44,9 @@ To be clear about the boundary: this survives closing the window and the GUI cra
 
 Here is the demo that says everything. Split a pane, start `ping` in it, close the whole window, then reopen it. The ping is still counting. It never stopped, because it was never the window's to stop. It belongs to the daemon.
 
-<div align="center">
-  <video src="https://github.com/flxdevlab/epimone-terminal/raw/main/docs/screenshots/persistence.mp4" width="820" controls autoplay loop muted></video>
-</div>
+https://github.com/user-attachments/assets/8fe6af5a-5be1-49c1-960a-377b98de2f94
+
+
 
 Closing the window only detaches it. Nothing dies unless the shell exits on its own, you kill it on purpose, or the machine shuts down. That accidental close on a six-hour job stops being a disaster.
 
