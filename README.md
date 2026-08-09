@@ -4,10 +4,10 @@
 
 # Epimone Terminal
 
-### The terminal that never loses your work.
+### The terminal that keeps running after you close the window.
 
-Close the window. Crash the app. Log out and come back tomorrow.
-Your shells are still running, right where you left them.
+Close the window. Crash the GUI. Your shells keep running in the background,
+right where you left them, until you reattach.
 
 ![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 ![Made with C](https://img.shields.io/badge/Made%20with-C-555.svg)
@@ -20,17 +20,19 @@ Your shells are still running, right where you left them.
 
 ---
 
-*Epimone (pronounced eh-PIM-o-nee) is a rhetorical device: the persistent repetition of a phrase, question, or single point to keep the focus on one central idea. It comes from the Greek epi (upon) and mone (tarrying, or staying). A terminal that refuses to let your session go felt like the right thing to name after it.*
+*Epimone (pronounced eh-PIM-o-nee) is a rhetorical device: the persistent repetition of a phrase, question, or single point to keep the focus on one central idea. It comes from the Greek epi (upon) and mone (tarrying, or staying). A terminal that refuses to let go of your session while it is running felt like the right thing to name after it.*
 
 ## What makes it different
 
-Most terminals tie a session's life to its window. Close the tab and the job dies with it. You start something long, a build, a scan, six hours of hashcat, then close the wrong window or hit a crash, and it's gone. Anyone who lives in a terminal knows that feeling.
+Most terminals tie a session's life to its window. Close the tab and the job dies with it. You start something long, a build, a scan, six hours of hashcat, then close the wrong window or the GUI crashes, and it's gone. Anyone who lives in a terminal knows that feeling.
 
-tmux solves it, but you have to live inside tmux: keyboard prefixes, no real GUI. Epimone gives you the same safety net inside a normal graphical terminal you already know how to use. A small background daemon owns your real sessions and their scrollback. The window is just a view. Kill it and your work keeps running.
+tmux solves it, but you have to live inside tmux: keyboard prefixes, no real GUI. Epimone gives you the same safety net inside a normal graphical terminal you already know how to use. A background daemon owns your real sessions and their scrollback. The window is just a view onto them. Close the view and the sessions keep running.
+
+To be clear about the boundary: this survives closing the window and the GUI crashing, because the daemon stays alive in the background. It does not survive a logout or a reboot. When the machine powers off, the running processes go with it, same as anything else. What Epimone protects against is the accidental close and the crash, not the power cut.
 
 ## Features
 
-- **Persistent sessions.** A background daemon holds every PTY and its scrollback. Close the window or crash the GUI and nothing dies. Reattach and everything is still running.
+- **Sessions that outlive the window.** A background daemon holds every PTY and its scrollback. Close the window or crash the GUI and the shells keep running. Reopen and reattach, and everything is still going.
 - **Session overview.** A grid of every session, attached or detached, with live thumbnails of each tab's real split layout. Click to restore the whole arrangement.
 - **Real tiling splits.** A proper split tree, any direction, nested as deep as you want, with pane zoom and drag to resize.
 - **Whole-window theming.** Fifteen palettes that recolor the entire app, not just the text area. Light and dark, following your system accent.
@@ -38,15 +40,17 @@ tmux solves it, but you have to live inside tmux: keyboard prefixes, no real GUI
 - **Rebindable shortcuts.** Fourteen configurable keys with conflict detection.
 - **Native GNOME app.** GTK4 and libadwaita.
 
-## Never lose a session
+## Never lose a running session
 
-Here is the demo that says everything. Split a pane, start `ping` in it, close the whole thing, then reopen it. The ping is still counting. It never stopped, because it was never the window's to stop. It belongs to the daemon.
+Here is the demo that says everything. Split a pane, start `ping` in it, close the whole window, then reopen it. The ping is still counting. It never stopped, because it was never the window's to stop. It belongs to the daemon.
 
-https://github.com/flxdevlab/epimone-terminal/raw/main/docs/screenshots/persistence.mp4
+<div align="center">
+  <video src="https://github.com/flxdevlab/epimone-terminal/raw/main/docs/screenshots/persistence.mp4" width="820" controls autoplay loop muted></video>
+</div>
 
-Closing anything only detaches it. Nothing dies unless the shell exits on its own or you kill it on purpose. That accidental close on a six-hour job stops being a disaster.
+Closing the window only detaches it. Nothing dies unless the shell exits on its own, you kill it on purpose, or the machine shuts down. That accidental close on a six-hour job stops being a disaster.
 
-> The one thing persistence can't beat is a reboot. Power off and the running processes go with the RAM. Everything short of that survives.
+> The boundary is the machine itself. A logout or a reboot takes the running processes with it, because they live in RAM. Everything short of powering down survives.
 
 ## Session overview
 
@@ -78,7 +82,7 @@ A full settings window: shell and profile, scrollback, cursor, fonts, padding, a
 
 Epimone ships its own bash and zsh integration (OSC 7 and OSC 133), injected at launch, so new tabs and splits open in the current directory without you ever editing your `~/.bashrc`.
 
-It is aimed at Linux developers, and at pentesters on Kali and Parrot, where a dropped shell in the middle of an engagement can cost hours. The whole design starts from one promise: your session outlives the window.
+It is aimed at Linux developers, and at pentesters on Kali and Parrot, where a dropped shell in the middle of an engagement can cost hours. The whole design starts from one idea: your session should outlive the window showing it.
 
 ## Status
 
