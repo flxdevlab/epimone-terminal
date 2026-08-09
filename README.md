@@ -4,8 +4,10 @@
 
 # Epimone Terminal
 
-*Epimone (pronounced eh-PIM-o-nee) is a rhetorical device: the persistent repetition of a phrase, question, or single point to keep the focus on one central idea. It comes from the Greek epi (upon) and mone (tarrying, or staying). A terminal that refuses to let go of your session while it is running felt like the right thing to name after it.*
 ### The terminal that keeps running after you close the window.
+
+*Epimone (pronounced eh-PIM-o-nee) is a rhetorical device: the persistent repetition of a phrase, question, or single point to keep the focus on one central idea. It comes from the Greek epi (upon) and mone (tarrying, or staying). A terminal that refuses to let go of your session while it is running felt like the right thing to name after it.*
+
 
 Close the window. Crash the GUI. Your shells keep running in the background,
 right where you left them, until you reattach.
